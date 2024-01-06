@@ -15,7 +15,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@Transactional
 public class UserController {
     UserService userService;
 

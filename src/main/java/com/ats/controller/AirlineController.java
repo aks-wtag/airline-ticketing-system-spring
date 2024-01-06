@@ -17,7 +17,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Transactional
 public class AirlineController {
     AirlineService airlineService;
 

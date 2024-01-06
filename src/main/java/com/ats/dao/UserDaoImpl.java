@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 import java.util.logging.Logger;
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao{
     private SessionFactory sessionFactory;
     private Logger logger;
@@ -34,19 +33,6 @@ public class UserDaoImpl implements UserDao{
             throw new RuntimeException(e);
         }
     }
-
-//    @Override
-//    public boolean modifyPassengerDetails(Passenger passenger) {
-//        try {
-//            Session session = sessionFactory.getCurrentSession();
-//            session.update(passenger);
-//            return true;
-//        } catch (Exception e) {
-//            logger.info("Passenger edit failed");
-//            logger.info(e.toString());
-//            return false;
-//        }
-//    }
 
     @Override
     public Passenger getPassenger(int passengerId) {

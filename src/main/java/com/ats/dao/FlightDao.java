@@ -9,8 +9,5 @@ public interface FlightDao {
     List<Flight> getFlights();
     Flight getFlight(int flightId);
     List<Flight> getFilteredFlights(String departureLocation, String arrivalLocation, String departureDate);
-
-    //    boolean updateFlight(Flight flight);
-
     void deleteFlight(Flight flight);
 }

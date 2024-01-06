@@ -22,7 +22,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Transactional
 public class BookingController {
     BookingService bookingService;
     UserService userService;

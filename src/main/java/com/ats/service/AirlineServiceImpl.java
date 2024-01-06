@@ -5,11 +5,13 @@ import com.ats.model.airline.Airline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class AirlineServiceImpl implements AirlineService {
 //    private AdminDao adminDao;
     private final AirlineDao airlineDao;

@@ -6,12 +6,14 @@ import com.ats.model.flight.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class FlightServiceImpl implements FlightService{
     FlightDao flightDao;
     AirlineDao airlineDao;

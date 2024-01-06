@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@Transactional
 public class FlightController {
     FlightService flightService;
     AirlineService airlineService;

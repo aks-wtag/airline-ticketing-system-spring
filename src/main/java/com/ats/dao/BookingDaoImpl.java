@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-@Transactional
 public class BookingDaoImpl implements BookingDao{
     private SessionFactory sessionFactory;
     private Logger logger;
