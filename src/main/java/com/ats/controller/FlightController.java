@@ -9,17 +9,16 @@ import com.ats.service.AirlineService;
 import com.ats.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping
 public class FlightController {
     FlightService flightService;
     AirlineService airlineService;
@@ -30,7 +29,7 @@ public class FlightController {
         this.airlineService = airlineService;
     }
 
-    @PostMapping(value = "/flights", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<Flight> addFlight(@Valid @RequestBody FlightInput flightInput, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
@@ -43,19 +42,19 @@ public class FlightController {
         return new ResponseEntity<>(flightService.addFlight(flight), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/flights", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public ResponseEntity<List<Flight>> getAllFlight(){
         List<Flight> flights = flightService.getAllFlights();
         return ResponseEntity.ok(flights);
     }
 
-    @GetMapping(value = "/flights/searched-flights", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/searched-flights")
     public ResponseEntity<List<Flight>> getFilteredFlights(@RequestBody Map<String, String> filterFields){
         List<Flight> flights = flightService.getFilteredFlights(filterFields);
         return ResponseEntity.ok(flights);
     }
 
-    @PutMapping(value = "/flights/{flightId}")
+    @PutMapping(value = "/{flightId}")
     public ResponseEntity<Flight> updateFlight(@PathVariable int flightId, @RequestBody FlightInput flightInput, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
@@ -71,7 +70,7 @@ public class FlightController {
         return new ResponseEntity<>(modifiedFlight, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/flights/{flightId}")
+    @DeleteMapping(value = "/{flightId}")
     public ResponseEntity<Void> deleteFlight(@PathVariable int flightId){
         flightService.deleteFlight(flightId);
         return ResponseEntity.noContent().build();

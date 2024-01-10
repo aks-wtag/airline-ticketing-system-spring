@@ -7,16 +7,15 @@ import com.ats.model.FactoryObjectMapper;
 import com.ats.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/airlines")
 public class AirlineController {
     AirlineService airlineService;
 
@@ -26,7 +25,7 @@ public class AirlineController {
     }
 
 
-    @PostMapping(value = "/airlines", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<Airline> addAirline(@Valid @RequestBody AirlineInput airlineInput, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
@@ -36,13 +35,13 @@ public class AirlineController {
         return new ResponseEntity<>(airlineService.addAirline(airline), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/airlines", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public ResponseEntity<List<Airline>> getAirlines(){
         List<Airline> airlines = airlineService.getAllAirline();
         return ResponseEntity.ok(airlines);
     }
 
-    @PutMapping(value = "/airlines/{airlineId}")
+    @PutMapping(value = "/{airlineId}")
     public ResponseEntity<Airline> updateAirline(@PathVariable String airlineId, @RequestBody  Airline airline, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
@@ -53,7 +52,7 @@ public class AirlineController {
         return new ResponseEntity<>(modifiedAirline, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/airlines/{airlineId}")
+    @DeleteMapping(value = "/{airlineId}")
     public ResponseEntity<Void> deleteAirline(@PathVariable String airlineId){
         airlineService.deleteAirline(airlineId);
         return ResponseEntity.noContent().build();

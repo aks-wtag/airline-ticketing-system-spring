@@ -6,15 +6,14 @@ import com.ats.model.user.*;
 import com.ats.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/passengers")
 public class UserController {
     UserService userService;
 
@@ -24,7 +23,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/passengers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<PassengerOutput> registrationDetails(@Valid @RequestBody PassengerInput passengerInput, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
@@ -35,7 +34,7 @@ public class UserController {
         return new ResponseEntity<>(FactoryObjectMapper.convertPassengerEntityToPassengerOutput(savedPassenger), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/passengers/{passengerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{passengerId}")
     public ResponseEntity<PassengerOutput> editPassengerDetails(@PathVariable int passengerId, @Valid @RequestBody PassengerInput passengerInput, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult);
