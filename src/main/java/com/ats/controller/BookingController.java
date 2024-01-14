@@ -1,10 +1,9 @@
 package com.ats.controller;
 
 
-import com.ats.exception.BadRequestException;
+import com.ats.model.FactoryObjectMapper;
 import com.ats.model.booking.Booking;
 import com.ats.model.booking.BookingInput;
-import com.ats.model.FactoryObjectMapper;
 import com.ats.model.flight.Flight;
 import com.ats.model.user.Passenger;
 import com.ats.service.BookingService;
@@ -13,7 +12,6 @@ import com.ats.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,11 +33,7 @@ public class BookingController {
 
 
     @PostMapping(value = "/{passengerId}/bookings")
-    public ResponseEntity<Booking> bookTicket(@PathVariable int passengerId, @Valid @RequestBody BookingInput bookingInput, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult);
-        }
-
+    public ResponseEntity<Booking> bookTicket(@PathVariable int passengerId, @Valid @RequestBody BookingInput bookingInput) {
         Passenger passenger = userService.getPassenger(passengerId);
         bookingInput.setPassenger(passenger);
         Flight flight = flightService.getFlight(bookingInput.getFlightId());

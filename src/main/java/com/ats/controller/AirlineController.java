@@ -1,14 +1,12 @@
 package com.ats.controller;
 
-import com.ats.exception.BadRequestException;
+import com.ats.model.FactoryObjectMapper;
 import com.ats.model.airline.Airline;
 import com.ats.model.airline.AirlineInput;
-import com.ats.model.FactoryObjectMapper;
 import com.ats.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,13 +22,8 @@ public class AirlineController {
         this.airlineService = airlineService;
     }
 
-
     @PostMapping
-    public ResponseEntity<Airline> addAirline(@Valid @RequestBody AirlineInput airlineInput, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult);
-        }
-
+    public ResponseEntity<Airline> addAirline(@Valid @RequestBody AirlineInput airlineInput){
         Airline airline = FactoryObjectMapper.convertAirlineInputToModel(airlineInput);
         return new ResponseEntity<>(airlineService.addAirline(airline), HttpStatus.CREATED);
     }
@@ -42,12 +35,7 @@ public class AirlineController {
     }
 
     @PutMapping(value = "/{airlineId}")
-    public ResponseEntity<Airline> updateAirline(@PathVariable String airlineId, @RequestBody  Airline airline, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult);
-        }
-
-//        Airline airline = FactoryObjectMapper.convertAirlineInputToModel(airlineInput);
+    public ResponseEntity<Airline> updateAirline(@PathVariable String airlineId, @RequestBody  Airline airline){
         Airline modifiedAirline = airlineService.updateAirline(airlineId, airline);
         return new ResponseEntity<>(modifiedAirline, HttpStatus.OK);
     }

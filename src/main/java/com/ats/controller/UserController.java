@@ -2,7 +2,9 @@ package com.ats.controller;
 
 
 import com.ats.model.FactoryObjectMapper;
-import com.ats.model.user.*;
+import com.ats.model.user.Passenger;
+import com.ats.model.user.PassengerInput;
+import com.ats.model.user.PassengerOutput;
 import com.ats.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

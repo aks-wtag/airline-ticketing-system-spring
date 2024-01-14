@@ -1,8 +1,7 @@
 package com.ats.controller;
 
-import com.ats.exception.BadRequestException;
-import com.ats.model.airline.Airline;
 import com.ats.model.FactoryObjectMapper;
+import com.ats.model.airline.Airline;
 import com.ats.model.flight.Flight;
 import com.ats.model.flight.FlightInput;
 import com.ats.service.AirlineService;
@@ -10,7 +9,6 @@ import com.ats.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,10 +28,7 @@ public class FlightController {
     }
 
     @PostMapping
-    public ResponseEntity<Flight> addFlight(@Valid @RequestBody FlightInput flightInput, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult);
-        }
+    public ResponseEntity<Flight> addFlight(@Valid @RequestBody FlightInput flightInput){
         Airline airline = airlineService.getAirline(flightInput.getAirlineId());
 
         flightInput.setAirline(airline);
@@ -55,10 +50,7 @@ public class FlightController {
     }
 
     @PutMapping(value = "/{flightId}")
-    public ResponseEntity<Flight> updateFlight(@PathVariable int flightId, @RequestBody FlightInput flightInput, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult);
-        }
+    public ResponseEntity<Flight> updateFlight(@PathVariable int flightId, @RequestBody FlightInput flightInput){
         Airline airline = airlineService.getAirline(flightInput.getAirlineId());
 
         flightInput.setAirline(airline);

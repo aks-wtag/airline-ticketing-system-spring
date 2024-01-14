@@ -3,7 +3,6 @@ package com.ats.advice;
 
 import com.ats.exception.BadRequestException;
 import com.ats.message.ErrorMessage;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
